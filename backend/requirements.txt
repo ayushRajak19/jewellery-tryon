@@ -1,0 +1,19 @@
+# Web Server
+fastapi
+uvicorn
+python-multipart
+
+# Computer Vision & Math
+mediapipe
+opencv-python
+numpy
+pillow
+
+# AI Image Processing
+rembg
+onnxruntime  # Required by rembg for CPU processing
+
+# Gen AI Stylist
+langchain
+langchain-groq
+python-dotenv

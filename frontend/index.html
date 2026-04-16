@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA — Fine Jewellery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav>
+    <span class="logo">AURA</span>
+    <div class="nav-links">
+      <span class="api-status" id="apiStatus">⬤ Checking...</span>
+      <button class="cart-btn" id="cartBtn" onclick="checkout()">
+        <span>🛒</span>
+        <span>Cart</span>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════
+         STORE VIEW
+    ════════════════════════════════════════ -->
+    <div id="storeView">
+
+      <div class="hero">
+        <div class="hero-tag">New Collection 2026</div>
+        <h1>Discover Your<br><em>Perfect Sparkle</em></h1>
+        <p>Try on every piece virtually before you buy</p>
+      </div>
+
+      <div class="section-header">
+        <h2>Earrings</h2>
+        <span class="section-line"></span>
+      </div>
+      <div class="jewellery-grid" id="storeEarrings">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+
+      <div class="section-header" style="margin-top:3rem">
+        <h2>Necklaces</h2>
+        <span class="section-line"></span>
+      </div>
+      <div class="jewellery-grid" id="storeNecklaces">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         TRY-ON VIEW
+    ════════════════════════════════════════ -->
+    <div id="tryonView" style="display:none">
+
+      <div class="tryon-header">
+        <button class="back-btn" onclick="closeTryOn()">← Back</button>
+        <div class="tryon-item-info">
+          <span id="tryonTitle">Trying on</span>
+          <span class="tryon-price">₹<span id="tryonPrice"></span></span>
+        </div>
+        <button class="btn-gold" onclick="addToCart(activeTryOnItem)">Add to Cart</button>
+      </div>
+
+      <div class="tryon-layout">
+
+        <!-- LEFT: Upload / Camera -->
+        <div class="tryon-left">
+          <div class="panel-title">Your Photo</div>
+
+          <div class="tab-bar">
+            <button class="tab active" id="tabUpload" onclick="switchTab('upload')">Upload</button>
+            <button class="tab" id="tabCamera" onclick="switchTab('camera')">Camera</button>
+          </div>
+
+          <!-- Upload -->
+          <div id="uploadSection">
+            <div class="upload-box" id="uploadBox">
+              <input type="file" id="fileInput" accept="image/jpeg,image/png,image/jpg">
+              <label for="fileInput" class="upload-label">
+                <div class="upload-icon">📷</div>
+                <div class="upload-text">Click to upload</div>
+                <div class="upload-hint">Front-facing photo works best</div>
+              </label>
+            </div>
+            <div id="photoPreview" style="display:none; text-align:center">
+              <img id="previewImg" alt="Preview">
+              <button class="change-btn" onclick="resetUpload()">Change Photo</button>
+            </div>
+          </div>
+
+          <!-- Camera -->
+          <div id="cameraSection" style="display:none">
+            <div class="camera-box" id="cameraBox">
+              <video id="video" autoplay playsinline></video>
+              <canvas id="cameraCanvas" style="display:none"></canvas>
+            </div>
+            <div class="camera-actions">
+              <button class="btn-gold" id="startCamBtn" onclick="startCamera()">Start Camera</button>
+              <button class="btn-gold" id="snapBtn" onclick="snapPhoto()" style="display:none">📸 Snap</button>
+            </div>
+            <div id="snapPreview" style="display:none; text-align:center">
+              <img id="snapImg" alt="Captured">
+              <button class="change-btn" onclick="retake()">Retake</button>
+            </div>
+          </div>
+
+          <button class="btn-generate" id="tryonBtn" onclick="runTryon()">
+            <span id="tryonBtnText">✨ Generate Try-On</span>
+          </button>
+
+          <div class="error-box" id="errorBox" style="display:none"></div>
+        </div>
+
+        <!-- RIGHT: Result Canvas -->
+        <div class="tryon-right">
+          <div class="panel-title">Your Look</div>
+
+          <div class="canvas-placeholder" id="canvasPlaceholder">
+            <div class="placeholder-inner">
+              <div class="placeholder-icon">✨</div>
+              <p>Your try-on result will appear here</p>
+              <p class="placeholder-hint">Upload a photo and click Generate</p>
+            </div>
+          </div>
+
+          <div class="tryon-canvas-container" id="canvasContainer" style="display:none">
+            <img id="baseImage" class="base-photo" alt="Try-on">
+          </div>
+
+          <div class="drag-hint" id="dragHint" style="display:none">
+            👆 Drag the jewellery to adjust position
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
