@@ -1,19 +1,27 @@
-# Web Server
+# --- Web Server ---
 fastapi
 uvicorn
 python-multipart
+python-dotenv
 
-# Computer Vision & Math
+# --- Computer Vision & AR ---
 mediapipe
 opencv-python
 numpy
 pillow
-
-# AI Image Processing
 rembg
-onnxruntime  # Required by rembg for CPU processing
+onnxruntime
 
-# Gen AI Stylist
+# --- Database & Storage ---
+pymongo
+dnspython
+chromadb
+
+# --- Gen AI Stylist (Google Gemini + RAG) ---
 langchain
-langchain-groq
-python-dotenv
+langchain-google-genai
+google-generativeai
+pypdf
+langchain-chroma
+langchain-huggingface
+sentence-transformers

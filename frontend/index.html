@@ -24,9 +24,6 @@
 
   <main>
 
-    <!-- ═══════════════════════════════════════
-         STORE VIEW
-    ════════════════════════════════════════ -->
     <div id="storeView">
 
       <div class="hero">
@@ -57,9 +54,6 @@
 
     </div>
 
-    <!-- ═══════════════════════════════════════
-         TRY-ON VIEW
-    ════════════════════════════════════════ -->
     <div id="tryonView" style="display:none">
 
       <div class="tryon-header">
@@ -73,7 +67,6 @@
 
       <div class="tryon-layout">
 
-        <!-- LEFT: Upload / Camera -->
         <div class="tryon-left">
           <div class="panel-title">Your Photo</div>
 
@@ -82,7 +75,6 @@
             <button class="tab" id="tabCamera" onclick="switchTab('camera')">Camera</button>
           </div>
 
-          <!-- Upload -->
           <div id="uploadSection">
             <div class="upload-box" id="uploadBox">
               <input type="file" id="fileInput" accept="image/jpeg,image/png,image/jpg">
@@ -98,7 +90,6 @@
             </div>
           </div>
 
-          <!-- Camera -->
           <div id="cameraSection" style="display:none">
             <div class="camera-box" id="cameraBox">
               <video id="video" autoplay playsinline></video>
@@ -121,7 +112,6 @@
           <div class="error-box" id="errorBox" style="display:none"></div>
         </div>
 
-        <!-- RIGHT: Result Canvas -->
         <div class="tryon-right">
           <div class="panel-title">Your Look</div>
 
@@ -148,6 +138,25 @@
 
   </main>
 
+  <div id="aiChatWidget">
+    <button class="chat-trigger" onclick="toggleChat()" title="Talk to Aura AI Stylist">✨</button>
+    <div id="chatWindow">
+      <div class="chat-header">
+        <span>Aura AI Stylist</span>
+        <span class="chat-close" onclick="toggleChat()">×</span>
+      </div>
+      <div id="chatMessages">
+        <div class="msg msg-bot">Hello! I'm Aura, your AI stylist. I can help you find pieces that match your skin tone, face shape, or an event. What's on your mind?</div>
+      </div>
+      <div class="chat-input-container">
+        <input type="text" id="chatInput" placeholder="Ask for styling advice...">
+        <button class="send-btn" onclick="sendChatMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+
   <script src="js/app.js"></script>
+
+
 </body>
 </html>

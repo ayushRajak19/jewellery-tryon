@@ -587,3 +587,184 @@ input[type="file"] { display: none; }
 }
 
 .draggable-jewellery:active { cursor: grabbing; }
+/* ── AI CHATBOT WIDGET (Aura Luxury Integration) ── */
+
+#aiChatWidget {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Floating Toggle Button */
+.chat-trigger {
+  width: 60px;
+  height: 60px;
+  background: var(--ink);
+  color: var(--gold);
+  border: 1px solid var(--gold-dark);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(26,18,8,0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chat-trigger:hover {
+  transform: translateY(-5px) scale(1.05);
+  background: var(--ink-soft);
+  box-shadow: 0 12px 40px rgba(160,120,64,0.3);
+}
+
+/* Chat Window Container */
+#chatWindow {
+  display: none; /* Controlled by toggleChat() */
+  position: absolute;
+  bottom: 80px;
+  right: 0;
+  width: 360px;
+  height: 520px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(26,18,8,0.15);
+  overflow: hidden;
+  animation: auraFadeIn 0.4s ease-out;
+}
+
+@keyframes auraFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+.chat-header {
+  padding: 1.25rem;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-header span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+}
+
+.chat-close {
+  cursor: pointer;
+  color: var(--ink-muted);
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/* Message Area */
+#chatMessages {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  background: #fdfcf9; /* Subtle warm tint to match AURA theme */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Message Bubbles */
+.msg {
+  max-width: 85%;
+  padding: 0.85rem 1.1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  border-radius: 14px;
+}
+
+.msg-bot {
+  align-self: flex-start;
+  background: var(--white);
+  color: var(--ink-soft);
+  border: 1px solid var(--border);
+  border-bottom-left-radius: 2px;
+}
+
+.msg-user {
+  align-self: flex-end;
+  background: var(--ink);
+  color: var(--gold-light);
+  border-bottom-right-radius: 2px;
+}
+
+/* AI Recommendation Button */
+.rec-btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  background: var(--cream);
+  color: var(--ink);
+  border: 1px solid var(--gold-light);
+  border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.rec-btn:hover {
+  background: var(--gold-light);
+  border-color: var(--gold);
+  transform: translateY(-1px);
+}
+
+/* Input Area */
+.chat-input-container {
+  padding: 1.25rem;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 0.75rem;
+}
+
+#chatInput {
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#chatInput:focus {
+  border-color: var(--gold);
+}
+
+.send-btn {
+  background: var(--ink);
+  color: var(--white);
+  border: none;
+  padding: 0 1.25rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.send-btn:hover {
+  background: var(--gold-dark);
+}
+
+/* Custom Scrollbar for Chat Area */
+#chatMessages::-webkit-scrollbar { width: 4px; }
+#chatMessages::-webkit-scrollbar-track { background: transparent; }
+#chatMessages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }

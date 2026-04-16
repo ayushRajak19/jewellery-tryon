@@ -330,3 +330,88 @@ function showError(msg) {
 function hideError() {
     document.getElementById('errorBox').style.display = 'none';
 }
+// UI Controls for Chatbot (You can move this to app.js)
+function toggleChat() {
+  const win = document.getElementById('chatWindow');
+  if (win.style.display === 'flex') {
+    win.style.display = 'none';
+  } else {
+    win.style.display = 'flex';
+    document.getElementById('chatInput').focus();
+  }
+}
+
+// Ensure this listener runs after the DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    const chatInput = document.getElementById('chatInput');
+    if(chatInput) {
+        chatInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') sendChatMessage();
+        });
+    }
+});
+// ── AI CHATBOT ENGINE ─────────────────────
+async function sendChatMessage() {
+    const input = document.getElementById("chatInput");
+    const container = document.getElementById("chatMessages");
+    const text = input.value.trim();
+
+    if (!text) return;
+
+    // 1. Show User Message
+    container.innerHTML += `<div class="msg msg-user">${text}</div>`;
+    input.value = "";
+    container.scrollTop = container.scrollHeight;
+
+    try {
+        // 2. Fetch from FastAPI
+        const response = await fetch(`${API_URL}/chat`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: text })
+        });
+
+        if (!response.ok) throw new Error("Aura is sleeping...");
+
+        const data = await response.json();
+
+        // 3. Show Bot Response
+        let botHtml = `<div class="msg msg-bot">${data.reply}`;
+
+        // 4. Handle Recommendations
+        if (data.recommended_products && data.recommended_products.length > 0) {
+            botHtml += `<div style="margin-top:10px; border-top:1px solid rgba(0,0,0,0.1); padding-top:10px;">`;
+            data.recommended_products.forEach(prod => {
+                // Map the data correctly to match your local allProducts format
+                const productToTry = {
+                    id: prod.product_id,
+                    name: prod.name,
+                    price: prod.price,
+                    image: prod.image,
+                    type: prod.type ? prod.type.toLowerCase() : 'earring'
+                };
+
+                botHtml += `
+                    <button class="rec-btn" onclick='handleAIRecommendation(${JSON.stringify(productToTry)})'>
+                        Try on ${prod.name}
+                    </button>`;
+            });
+            botHtml += `</div>`;
+        }
+        botHtml += `</div>`;
+
+        container.innerHTML += botHtml;
+        container.scrollTop = container.scrollHeight;
+
+    } catch (err) {
+        container.innerHTML += `<div class="msg msg-bot" style="color:#b91c1c">⚠ Connection to Aura lost. Check your backend.</div>`;
+    }
+}
+
+// Bridges the AI Stylist to your existing openTryOn function
+function handleAIRecommendation(product) {
+    // Optional: toggleChat(); // Uncomment if you want to close chat on click
+    if (typeof openTryOn === "function") {
+        openTryOn(product);
+    }
+}
